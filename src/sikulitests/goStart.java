@@ -13,30 +13,36 @@ public class goStart
   private static String FIREFOXLABEL = "firefox";
   private static String IEXPLORERLABEL = "iexplorer";
   
+  private static String IMAGEFOLDER = "images";
   public static void main(String[] args)
     throws InterruptedException
   {
     try
     {
+    	// the App object represents the instance of the App to open and interact with
       App objApp = null;
       
       String BROWSER = "firefox";
       
+      // Handling multiple browsers in one
       if (BROWSER.equalsIgnoreCase(CHROMELABEL))
       {
-        ImagePath.setBundlePath("./src/images/chrome");
-        
-        ImagePath.add("sikulitests.goStart/images/chrome");
+        ImagePath.setBundlePath("./src/"+IMAGEFOLDER+"/chrome");
+        // the following line is necessary when this code is compiled into a standalone jar. it allows the code to retrieve the images stored in the jar file.
+        ImagePath.add("sikulitests.goStart/"+IMAGEFOLDER+"/chrome");
         
         objApp = App.open("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe");
       }
       if (BROWSER.equalsIgnoreCase(FIREFOXLABEL))
       {
-        ImagePath.setBundlePath("./src/images/firefox");
-        ImagePath.add("sikulitests.goStart/images/firefox");
+        ImagePath.setBundlePath("./src/"+IMAGEFOLDER+"/firefox");
+        ImagePath.add("sikulitests.goStart/"+IMAGEFOLDER+"/firefox");
         
+        // Open the application
         objApp = App.open("C:/Program Files (x86)/Mozilla Firefox/firefox.exe");
       }
+      
+      // Wait a few seconds for the app to load
       Thread.sleep(2000L);
       
       Screen objScreen = new Screen();
