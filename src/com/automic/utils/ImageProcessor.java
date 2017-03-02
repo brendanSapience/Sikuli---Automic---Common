@@ -40,7 +40,8 @@ public class ImageProcessor {
 		  ImageFinder finder = new ImageFinder(this.ALLIMAGEFILES,ImageName,screen,Wait,ExpectedMatch,location);
 			if(finder.ImageFound){
 				try {
-					screen.wait(finder.ValidFileName, Wait);
+					org.sikuli.script.Pattern pat = new org.sikuli.script.Pattern(finder.ValidFileName).similar(ExpectedMatch).targetOffset(location);
+					screen.wait(pat, Wait);
 				} catch (FindFailed e) {
 					return null;
 				}

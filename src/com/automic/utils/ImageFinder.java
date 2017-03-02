@@ -37,13 +37,24 @@ public class ImageFinder {
 	}
 	
 	private boolean checkFileName(String FileName, int Wait,float ExpectedMatch, Location location){
+		Match match = null;
 		try {
+//			try {
+//				Thread.sleep(4000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			objScreen.setAutoWaitTimeout(Wait);
 			org.sikuli.script.Pattern pat = new org.sikuli.script.Pattern(FileName).similar(ExpectedMatch).targetOffset(location);
-			Match match = objScreen.find(pat);
+			
+			match = objScreen.find(pat);
+			
 			Msgs.showInfo("Score is: "+match.getScore() +" for image: " +FileName);
-			objScreen.wait(FileName, Wait);
+			objScreen.wait(pat, Wait);
 			
 		} catch (FindFailed e2) {
+			Msgs.showInfo("Fail - Score is: "+match.getScore() +" for image: " +FileName);
 			return false;
 		}
 		return true;

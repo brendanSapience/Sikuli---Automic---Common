@@ -12,12 +12,20 @@ public class Msgs {
 		System.out.println("\t %% Info: " + s);
 	}
 	
+	public static void showInfoCR(String s){
+		System.out.println("\n\t %% Info: " + s);
+	}
+	
 	public static void showError(String s){
 		System.out.println("\t -- Error: " + s);
 	}
 	
 	public static void showSuccess(String s){
 		System.out.println("\t ++ Success: " + s);
+	}
+	
+	public static void showSuccessCR(String s){
+		System.out.println("\n\t ++ Success: " + s);
 	}
 	
 	public static void showButtonFound(){
