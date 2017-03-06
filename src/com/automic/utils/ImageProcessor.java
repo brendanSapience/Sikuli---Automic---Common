@@ -1,6 +1,7 @@
 package com.automic.utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.sikuli.script.FindFailed;
@@ -15,6 +16,7 @@ public class ImageProcessor {
 	  private Location DEFAULTLOCATION;
 	  private File[] ALLIMAGEFILES;
 	  private String IMAGEFOLDER;
+	  private double ScalingFactor = 1.0;
 	  
 	public ImageProcessor(String BundleImagePath,float DefaultAcceptableMatch, Location DefaultOffset){
 		this.ACCEPTABLEMATCH = DefaultAcceptableMatch;
@@ -22,6 +24,10 @@ public class ImageProcessor {
 		this.IMAGEFOLDER = BundleImagePath;
 		File f = new File(BundleImagePath);
 		this.ALLIMAGEFILES = f.listFiles();
+	}
+	
+	public void setScalingFactor(double Scaling){
+		this.ScalingFactor = Scaling;	
 	}
 	
 	 public String processImageWithMatch(String ImageName, Screen screen, int Wait, float ExpectedMatch){ 
@@ -37,7 +43,7 @@ public class ImageProcessor {
 	  }
 	  
 	 public String processImageWithOffsetAndMatch(String ImageName, Screen screen, int Wait,float ExpectedMatch,Location location){
-		  ImageFinder finder = new ImageFinder(this.ALLIMAGEFILES,ImageName,screen,Wait,ExpectedMatch,location);
+		  ImageFinder finder = new ImageFinder(this.ALLIMAGEFILES,ImageName,screen,Wait,ExpectedMatch,location,this.ScalingFactor);
 			if(finder.ImageFound){
 				try {
 					org.sikuli.script.Pattern pat = new org.sikuli.script.Pattern(finder.ValidFileName).similar(ExpectedMatch).targetOffset(location);
